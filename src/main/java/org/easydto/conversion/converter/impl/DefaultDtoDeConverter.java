@@ -7,14 +7,15 @@ import org.easydto.exception.DtoConversionException;
 import org.easydto.proxy.Dto;
 import org.easydto.proxy.DtoFactory;
 
+import java.util.Date;
 import java.util.Map;
+import java.util.UUID;
 
 public class DefaultDtoDeConverter extends StdDeConverter {
 
     @Override
     void convertPrimitive(ConversionContext<?> cc, Object value) {
-        PropertyConfiguration cp = cc.getCurrentPropertyConfiguration();
-        ((WriteProperty) cp.property).write(cc.getDomainObject(), value);
+        cc.getCurrentPropertyConfiguration().writeValue(cc.getDomainObject(), value);
     }
 
     @Override
@@ -34,6 +35,28 @@ public class DefaultDtoDeConverter extends StdDeConverter {
         } else {
             throw new UnsupportedOperationException("Boxing not fully supported yet");
         }
+    }
+
+    @Override
+    void convertSpecial(ConversionContext<?> cc, Object value) {
+        PropertyConfiguration cp = cc.getCurrentPropertyConfiguration();
+        WriteProperty property = ((WriteProperty) cp.property);
+        Object target = cc.getDomainObject();
+
+        if (property.getType() == UUID.class) {
+            property.write(target, UUID.fromString(value.toString()));
+        } else {
+            throw new UnsupportedOperationException("Special not fully supported yet");
+        }
+    }
+
+    @Override
+    void convertEnum(ConversionContext<?> cc, Object value) {
+        PropertyConfiguration cp = cc.getCurrentPropertyConfiguration();
+        WriteProperty property = ((WriteProperty) cp.property);
+        Object target = cc.getDomainObject();
+
+        property.write(target, Enum.valueOf((Class<Enum>)property.getType(), String.valueOf(value)));
     }
 
     @SuppressWarnings("unchecked")

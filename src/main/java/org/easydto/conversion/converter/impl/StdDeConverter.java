@@ -33,6 +33,12 @@ public abstract class StdDeConverter implements DtoDeConverter {
                 case COMPLEX:
                     convertNested(cc, dtoValue);
                     break;
+                case SPECIAL:
+                    convertSpecial(cc, dtoValue);
+                    break;
+                case ENUM:
+                    convertEnum(cc, dtoValue);
+                    break;
                 default:
                     throw new UnsupportedOperationException(property.propertyType() + " is not supported");
             }
@@ -47,5 +53,7 @@ public abstract class StdDeConverter implements DtoDeConverter {
     abstract void convertBoxing(ConversionContext<?> cc,  Object value);
 
     abstract void convertNested(ConversionContext<?> cc, Object value);
+    abstract void convertSpecial(ConversionContext<?> cc, Object value);
+    abstract void convertEnum(ConversionContext<?> cc, Object value);
 
 }

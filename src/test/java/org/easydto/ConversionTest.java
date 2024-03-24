@@ -1,9 +1,14 @@
 package org.easydto;
 
 import org.easydto.domain.Person;
+import org.easydto.domain.PersonRole;
 import org.easydto.proxy.Dto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.UUID;
 
 public class ConversionTest {
 
@@ -70,5 +75,28 @@ public class ConversionTest {
         Dto<Person> personDto = Dto.from(person);
 
         Assertions.assertEquals(15L, personDto.getProperty("age"));
+    }
+
+    @Test
+    public void testUUIDProperty(){
+        UUID uuid = UUID.randomUUID();
+
+        Person person = new Person();
+        person.id = uuid;
+
+        Dto<Person> personDto = Dto.from(person);
+
+        Assertions.assertEquals(uuid, personDto.getProperty("id"));
+    }
+
+    @Test
+    public void testEnumProperty(){
+
+        Person person = new Person();
+        person.role = PersonRole.STUDENT;
+
+        Dto<Person> personDto = Dto.from(person);
+
+        Assertions.assertEquals(PersonRole.STUDENT, personDto.getProperty("role"));
     }
 }

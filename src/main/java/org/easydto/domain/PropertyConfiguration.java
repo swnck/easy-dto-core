@@ -55,4 +55,7 @@ public class PropertyConfiguration {
         return false;
     }
 
+    public void writeValue(Object target, Object value) {
+        ((WriteProperty) this.property).write(target, value);
+    }
 }

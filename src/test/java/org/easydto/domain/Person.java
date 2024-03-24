@@ -2,6 +2,10 @@ package org.easydto.domain;
 
 import org.easydto.annotation.DtoProperty;
 
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.UUID;
+
 public class Person {
 
     @DtoProperty
@@ -18,8 +22,14 @@ public class Person {
     @DtoProperty
     public Long age;
 
+    @DtoProperty
+    public UUID id;
+
     @DtoProperty("gender")
     public String sex;
+
+    @DtoProperty
+    public PersonRole role;
 
     public boolean isNri;
     public String country;

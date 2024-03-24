@@ -2,14 +2,17 @@ package org.easydto.domain;
 
 import org.easydto.enums.PropertyType;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public final class TypeManager {
 
     public final static TypeManager instance = new TypeManager();
 
     private final Set<Class<?>> wrapperTypes;
+    private final Set<Class<?>> specialTypes;
 
     private TypeManager() {
         wrapperTypes = new HashSet<>(16);
@@ -22,24 +25,26 @@ public final class TypeManager {
         wrapperTypes.add(Long.class);
         wrapperTypes.add(Short.class);
         wrapperTypes.add(Void.class);
+
+        specialTypes = new HashSet<>(1);
+        specialTypes.add(UUID.class);
     }
 
     PropertyType resolveType(Property property){
-        if (isSimpleProperty(property))
+        Class<?> propertyType = property.getType();
+
+        if (propertyType.isPrimitive() || propertyType == String.class) {
             return PropertyType.SIMPLE;
-
-        if(isBoxedType(property))
+        }
+        if(wrapperTypes.contains(propertyType)) {
             return PropertyType.BOXED;
-
+        }
+        if(propertyType.isEnum()) {
+            return PropertyType.ENUM;
+        }
+        if(specialTypes.contains(propertyType)) {
+            return PropertyType.SPECIAL;
+        }
         return PropertyType.COMPLEX;
     }
-
-    boolean isSimpleProperty(Property property){
-        return property.getType().isPrimitive() || property.getType() == String.class;
-    }
-
-    boolean isBoxedType(Property property){
-        return wrapperTypes.contains(property.getType());
-    }
-
 }
