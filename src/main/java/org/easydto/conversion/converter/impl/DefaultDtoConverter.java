@@ -9,7 +9,12 @@ import org.easydto.exception.DtoConversionException;
 import org.easydto.proxy.Dto;
 import org.easydto.proxy.DtoFactory;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+
+//Domain to DTO
 public class DefaultDtoConverter implements DtoConverter {
 
     @Override
@@ -30,6 +35,12 @@ public class DefaultDtoConverter implements DtoConverter {
             if (pc.property.propertyType() == PropertyType.COMPLEX) {
                 ConversionContext<?> childContext = cc.createChildContext(readValue);
                 dto.putProperty(pc.targetName, convert(childContext));
+            } else if (pc.property.propertyType() == PropertyType.LIST) {
+                List<Object> list = (List<Object>) readValue;
+                dto.putProperty(pc.targetName, list);
+            } else if (pc.property.propertyType() == PropertyType.MAP) {
+                Map<Object, Object> map = (Map<Object, Object>) readValue;
+                dto.putProperty(pc.targetName, map);
             } else {
                 dto.putProperty(pc.targetName, readValue);
             }

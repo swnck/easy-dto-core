@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "org.easybird"
-version = "1.0.0-SNAPSHOT"
+version = "1.0.1"
 
 java.sourceCompatibility = JavaVersion.VERSION_21
 java.targetCompatibility = JavaVersion.VERSION_21

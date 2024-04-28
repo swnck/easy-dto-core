@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
+//DTO TO Object
 public class DefaultDtoDeConverter extends StdDeConverter {
 
     @Override
@@ -21,6 +22,7 @@ public class DefaultDtoDeConverter extends StdDeConverter {
 
     @Override
     void convertBoxing(ConversionContext<?> cc, Object value) {
+        System.out.println(cc.getConversionType().name());
         PropertyConfiguration cp = cc.getCurrentPropertyConfiguration();
         WriteProperty property = ((WriteProperty) cp.property);
         Object target = cc.getDomainObject();
@@ -56,6 +58,7 @@ public class DefaultDtoDeConverter extends StdDeConverter {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     void convertEnum(ConversionContext<?> cc, Object value) {
         PropertyConfiguration cp = cc.getCurrentPropertyConfiguration();
         WriteProperty property = ((WriteProperty) cp.property);
@@ -64,8 +67,9 @@ public class DefaultDtoDeConverter extends StdDeConverter {
         property.write(target, Enum.valueOf((Class<Enum>)property.getType(), String.valueOf(value)));
     }
 
-    @SuppressWarnings("unchecked")
+
     @Override
+    @SuppressWarnings("unchecked")
     void convertNested(ConversionContext<?> cc, Object value) {
         PropertyConfiguration cp = cc.getCurrentPropertyConfiguration();
         WriteProperty property = ((WriteProperty) cp.property);
@@ -87,6 +91,4 @@ public class DefaultDtoDeConverter extends StdDeConverter {
         Object vv = convert(childContext);
         property.write(target, vv);
     }
-
-
 }

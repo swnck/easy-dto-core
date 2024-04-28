@@ -31,6 +31,8 @@ public class ConversionTest {
         Dto<Person> personDto = Dto.from(person);
         Assertions.assertEquals(true, personDto.getProperty("isCool"));
         Assertions.assertEquals("John Doe", personDto.getProperty("name"));
+        System.out.println(personDto.getProperty("coolThings"));
+        System.out.println(personDto.getProperty("coolPersons"));
     }
 
     @Test

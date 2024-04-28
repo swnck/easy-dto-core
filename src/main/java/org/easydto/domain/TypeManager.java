@@ -2,10 +2,7 @@ package org.easydto.domain;
 
 import org.easydto.enums.PropertyType;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public final class TypeManager {
 
@@ -30,21 +27,33 @@ public final class TypeManager {
         specialTypes.add(UUID.class);
     }
 
-    PropertyType resolveType(Property property){
+    PropertyType resolveType(Property property) {
         Class<?> propertyType = property.getType();
 
         if (propertyType.isPrimitive() || propertyType == String.class) {
             return PropertyType.SIMPLE;
         }
-        if(wrapperTypes.contains(propertyType)) {
+
+        if (propertyType == List.class) {
+            return PropertyType.LIST;
+        }
+
+        if (propertyType == Map.class) {
+            return PropertyType.MAP;
+        }
+
+        if (wrapperTypes.contains(propertyType)) {
             return PropertyType.BOXED;
         }
-        if(propertyType.isEnum()) {
+
+        if (propertyType.isEnum()) {
             return PropertyType.ENUM;
         }
-        if(specialTypes.contains(propertyType)) {
+
+        if (specialTypes.contains(propertyType)) {
             return PropertyType.SPECIAL;
         }
+
         return PropertyType.COMPLEX;
     }
 }
