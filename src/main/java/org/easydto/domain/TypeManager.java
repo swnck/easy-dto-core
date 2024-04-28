@@ -2,6 +2,7 @@ package org.easydto.domain;
 
 import org.easydto.enums.PropertyType;
 
+import java.time.temporal.TemporalAccessor;
 import java.util.*;
 
 public final class TypeManager {
@@ -27,6 +28,12 @@ public final class TypeManager {
         specialTypes.add(UUID.class);
     }
 
+    public static boolean isDateTimeType(Class<?> clazz) {
+        return Date.class.isAssignableFrom(clazz) ||
+                Calendar.class.isAssignableFrom(clazz) ||
+                TemporalAccessor.class.isAssignableFrom(clazz);
+    }
+
     PropertyType resolveType(Property property) {
         Class<?> propertyType = property.getType();
 
@@ -50,7 +57,7 @@ public final class TypeManager {
             return PropertyType.ENUM;
         }
 
-        if (specialTypes.contains(propertyType)) {
+        if (specialTypes.contains(propertyType) || isDateTimeType(propertyType)) {
             return PropertyType.SPECIAL;
         }
 

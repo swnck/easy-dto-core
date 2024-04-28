@@ -31,6 +31,9 @@ public class Person {
     @DtoProperty
     public PersonRole role;
 
+    @DtoProperty
+    public LocalDate dob = LocalDate.now();
+
     public boolean isNri;
     public String country;
 

@@ -37,8 +37,6 @@ public class DefaultDtoDeConverter extends StdDeConverter {
             property.write(target, ((Number) value).floatValue());
         } else if (property.getType() == UUID.class) {
             property.write(target, UUID.fromString((String) value));
-        } else if (property.getType() == Date.class) {
-            property.write(target, Date.from(Instant.parse((String) value)));
         } else {
             throw new UnsupportedOperationException("Boxing not fully supported yet");
         }
@@ -52,6 +50,8 @@ public class DefaultDtoDeConverter extends StdDeConverter {
 
         if (property.getType() == UUID.class) {
             property.write(target, UUID.fromString(value.toString()));
+        } else if (property.getType() == Date.class) {
+            property.write(target, Date.from(Instant.parse((String) value)));
         } else {
             throw new UnsupportedOperationException("Special not fully supported yet");
         }

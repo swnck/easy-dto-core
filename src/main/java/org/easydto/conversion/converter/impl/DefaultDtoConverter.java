@@ -9,9 +9,9 @@ import org.easydto.exception.DtoConversionException;
 import org.easydto.proxy.Dto;
 import org.easydto.proxy.DtoFactory;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
+import static org.easydto.domain.StdConversionContext.forConversion;
 
 
 //Domain to DTO
@@ -36,11 +36,11 @@ public class DefaultDtoConverter implements DtoConverter {
                 ConversionContext<?> childContext = cc.createChildContext(readValue);
                 dto.putProperty(pc.targetName, convert(childContext));
             } else if (pc.property.propertyType() == PropertyType.LIST) {
-                List<Object> list = (List<Object>) readValue;
+                List<Object> uncheckedList = (List<Object>) readValue;
+                List<Dto<Object>> list = uncheckedList.stream()
+                        .map(o -> convert(forConversion(o, cc.getProfile())))
+                        .toList();
                 dto.putProperty(pc.targetName, list);
-            } else if (pc.property.propertyType() == PropertyType.MAP) {
-                Map<Object, Object> map = (Map<Object, Object>) readValue;
-                dto.putProperty(pc.targetName, map);
             } else {
                 dto.putProperty(pc.targetName, readValue);
             }

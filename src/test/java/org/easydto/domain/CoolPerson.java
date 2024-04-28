@@ -11,7 +11,17 @@ public class CoolPerson extends Person {
     public boolean isCool;
 
     @DtoProperty
-    public List<String> coolThings = List.of("cool1", "cool2", "cool3");
+    public List<Person> coolThings;
+
+    public CoolPerson() {
+        Person person1 = new Person();
+        person1.name("Luca");
+
+        Person person2 = new Person();
+        person2.name("Nick");
+
+        coolThings = List.of(person1, person2);
+    }
 
     @DtoProperty
     public Map<String, Boolean> coolPersons = Map.of("Luca", true, "Nick", false);

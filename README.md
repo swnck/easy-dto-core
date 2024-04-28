@@ -8,7 +8,7 @@ write any Dto class or mapping logic explicitly
 ...
 maven { url = uri("https://nexus.xo-6.studio/repository/maven-public/") }
 ...
-implementation("org.easybird:easy-dto-core:1.0.0-SNAPSHOT")
+implementation("org.easybird:easy-dto-core:latest")
 ```
 
 ## Declare DTO classes by simple annotations
@@ -92,9 +92,6 @@ Create an `ObjectMapper` instance and register the out-of-the-box serialization 
 ObjectMapper mapper = new ObjectMapper();
 Registerer.registerModules(mapper);
 ```
-
-Note to use same instance of `ObjectMapper` throughout, modules are registered in Mapper level. PS - ObjectMapper is 
-thread-safe. For Jackson support import [EasyDto Jackson](https://github.com/rahul-acr/easy-dto-jackson).
 
 ### Working with Spring
 
