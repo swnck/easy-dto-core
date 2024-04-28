@@ -1,5 +1,6 @@
 package org.easydto;
 
+import org.easydto.domain.CoolPerson;
 import org.easydto.domain.Person;
 import org.easydto.proxy.Dto;
 import org.easydto.proxy.DtoFactory;
@@ -86,6 +87,17 @@ public class DeConversionTest {
         Assertions.assertEquals("John Doe", person.name());
         Assertions.assertEquals("john@example.com", person.contact.email);
         Assertions.assertEquals("1234-55-66", person.contact.phone);
+    }
+
+    @Test
+    public void testExtend(){
+        Dto<CoolPerson> personDto = DtoFactory.INSTANCE.createDtoFor(CoolPerson.class, null);
+        personDto.putProperty("name", "John Doe");
+
+        CoolPerson person = new CoolPerson();
+        personDto.map(person);
+
+        Assertions.assertEquals("John Doe", person.name());
     }
 
 }

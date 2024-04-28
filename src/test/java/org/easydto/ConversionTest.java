@@ -1,5 +1,6 @@
 package org.easydto;
 
+import org.easydto.domain.CoolPerson;
 import org.easydto.domain.Person;
 import org.easydto.domain.PersonRole;
 import org.easydto.proxy.Dto;
@@ -18,6 +19,17 @@ public class ConversionTest {
         person.name("John Doe");
 
         Dto<Person> personDto = Dto.from(person);
+        Assertions.assertEquals("John Doe", personDto.getProperty("name"));
+    }
+
+    @Test
+    public void testSimpleExtendProperty(){
+        CoolPerson person = new CoolPerson();
+        person.isCool = true;
+        person.name("John Doe");
+
+        Dto<Person> personDto = Dto.from(person);
+        Assertions.assertEquals(true, personDto.getProperty("isCool"));
         Assertions.assertEquals("John Doe", personDto.getProperty("name"));
     }
 

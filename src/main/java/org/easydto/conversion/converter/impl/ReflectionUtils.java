@@ -13,14 +13,22 @@ public final class ReflectionUtils {
 
     public static List<PropertyConfiguration> getDtoProperties(Class<?> targetClass) {
         List<PropertyConfiguration> propertyConfigurations = new ArrayList<>();
-
-        for (Field field : targetClass.getDeclaredFields())
-            PropertyConfiguration.load(field).ifPresent(propertyConfigurations::add);
-
-        for (Method method : targetClass.getMethods())
-            PropertyConfiguration.load(method).ifPresent(propertyConfigurations::add);
-
+        getAllProperties(propertyConfigurations, targetClass);
         return propertyConfigurations;
+    }
+
+    private static void getAllProperties(List<PropertyConfiguration> configurations, Class<?> targetClass) {
+        for (Field field : targetClass.getDeclaredFields()) {
+            PropertyConfiguration.load(field).ifPresent(configurations::add);
+        }
+
+        for (Method method : targetClass.getMethods()) {
+            PropertyConfiguration.load(method).ifPresent(configurations::add);
+        }
+
+        if (targetClass.getSuperclass() != null) {
+            getAllProperties(configurations, targetClass.getSuperclass());
+        }
     }
 
     public static <T> T createNoArgInstance(Class<T> clazz) {

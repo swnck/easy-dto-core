@@ -7,6 +7,7 @@ plugins {
 
 group = "org.easybird"
 version = "1.0.0-SNAPSHOT"
+
 java.sourceCompatibility = JavaVersion.VERSION_21
 java.targetCompatibility = JavaVersion.VERSION_21
 
@@ -43,9 +44,9 @@ publishing {
             name = "nexus"
             val isSnapshot = project.version.toString().endsWith("-SNAPSHOT")
             url = if (isSnapshot)
-                uri("https://nexus.synclyn.com/repository/maven-snapshots/")
+                uri("https://nexus.xo-6.studio/repository/maven-snapshots/")
             else
-                uri("https://nexus.synclyn.com/repository/maven-releases/")
+                uri("https://nexus.xo-6.studio/repository/maven-releases/")
             credentials {
                 username = System.getenv("NEXUS_USERNAME")
                 password = System.getenv("NEXUS_PASSWORD")
