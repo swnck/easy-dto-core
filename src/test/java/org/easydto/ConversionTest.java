@@ -14,7 +14,7 @@ public class ConversionTest {
     @Test
     public void testSimpleStringProperty(){
         Person person = new Person();
-        person.name("John Doe");
+        person.setName("John Doe");
 
         Dto<Person> personDto = Dto.from(person);
         Assertions.assertEquals("John Doe", personDto.getProperty("name"));
@@ -24,7 +24,7 @@ public class ConversionTest {
     public void testSimpleExtendProperty(){
         CoolPerson person = new CoolPerson();
         person.isCool = true;
-        person.name("John Doe");
+        person.setName("John Doe");
 
         Dto<Person> personDto = Dto.from(person);
         Assertions.assertEquals(true, personDto.getProperty("isCool"));
@@ -54,7 +54,7 @@ public class ConversionTest {
     @SuppressWarnings("unchecked")
     public void testNestedProperty(){
         Person person = new Person();
-        person.name("John Doe");
+        person.setName("John Doe");
 
         person.contact = new Person.Contact();
         person.contact.email = "john@example.com";

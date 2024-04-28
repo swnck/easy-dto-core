@@ -40,7 +40,18 @@ public class DeConversionTest {
         Person person = new Person();
         dto.map(person);
 
-        Assertions.assertEquals("John Doe", person.name());
+        Assertions.assertEquals("John Doe", person.getName());
+    }
+
+    @Test
+    public void testExtendsPropertyString() {
+        Dto<CoolPerson> dto = DtoFactory.INSTANCE.createDtoFor(CoolPerson.class, null);
+        dto.putProperty("name", "John Doe");
+
+        CoolPerson person = new CoolPerson();
+        dto.map(person);
+
+        Assertions.assertEquals("John Doe", person.getName());
     }
 
     @Test
@@ -84,7 +95,7 @@ public class DeConversionTest {
         Person person = new Person();
         personDto.map(person);
 
-        Assertions.assertEquals("John Doe", person.name());
+        Assertions.assertEquals("John Doe", person.getName());
         Assertions.assertEquals("john@example.com", person.contact.email);
         Assertions.assertEquals("1234-55-66", person.contact.phone);
     }
@@ -97,7 +108,7 @@ public class DeConversionTest {
         CoolPerson person = new CoolPerson();
         personDto.map(person);
 
-        Assertions.assertEquals("John Doe", person.name());
+        Assertions.assertEquals("John Doe", person.getName());
     }
 
 }

@@ -1,11 +1,14 @@
 package org.easydto.domain;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.easydto.annotation.DtoProperty;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
+@Setter
 public class CoolPerson extends Person {
     @DtoProperty
     public boolean isCool;
@@ -15,11 +18,10 @@ public class CoolPerson extends Person {
 
     public CoolPerson() {
         Person person1 = new Person();
-        person1.name("Luca");
+        person1.setName("Luca");
 
         Person person2 = new Person();
-        person2.name("Nick");
-
+        person2.setName("Nick");
         coolThings = List.of(person1, person2);
     }
 

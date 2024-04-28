@@ -1,23 +1,18 @@
 package org.easydto.domain;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.easydto.annotation.DtoProperty;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.UUID;
 
+@Getter
+@Setter
 public class Person {
 
     @DtoProperty
     private String name;
-
-    public String name() {
-        return name;
-    }
-
-    public void name(String name){
-        this.name = name;
-    }
 
     @DtoProperty
     public Long age;
