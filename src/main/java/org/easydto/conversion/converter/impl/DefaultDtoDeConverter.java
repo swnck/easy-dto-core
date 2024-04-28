@@ -7,6 +7,7 @@ import org.easydto.exception.DtoConversionException;
 import org.easydto.proxy.Dto;
 import org.easydto.proxy.DtoFactory;
 
+import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
@@ -32,6 +33,10 @@ public class DefaultDtoDeConverter extends StdDeConverter {
             property.write(target, ((Number) value).doubleValue());
         } else if (property.getType() == Float.class) {
             property.write(target, ((Number) value).floatValue());
+        } else if (property.getType() == UUID.class) {
+            property.write(target, UUID.fromString((String) value));
+        } else if (property.getType() == Date.class) {
+            property.write(target, Date.from(Instant.parse((String) value)));
         } else {
             throw new UnsupportedOperationException("Boxing not fully supported yet");
         }
