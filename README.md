@@ -1,15 +1,23 @@
 # EasyDto
-
 EasyDto is java based library for working with DTOs (data transfer objects) of domain objects without requiring to
 write any Dto class or mapping logic explicitly
 
 
+```kts
+repositories {
+    maven { url = uri("https://nexus.xo-6.studio/repository/maven-public/") }
+}
+
+dependencies {
+    implementation("org.easybird:easy-dto-core:latest")
+}
 ```
-...
-maven { url = uri("https://nexus.xo-6.studio/repository/maven-public/") }
-...
-implementation("org.easybird:easy-dto-core:latest")
-```
+## ⚠️ Forked repository with features for our projects and you ⚠️
+
+- [x] Multi- Superclass support
+- [x] Support for the java util List<?>
+
+---
 
 ## Declare DTO classes by simple annotations
 
