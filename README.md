@@ -14,6 +14,8 @@ dependencies {
 ```
 ## ⚠️ Forked repository with features for our projects and you ⚠️
 
+Original repository: [EasyDto](https://github.com/rahul-acr/easy-dto-core)
+
 - [x] Multi- Superclass support
 - [x] Support for the java util List<?>
 
