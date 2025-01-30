@@ -1,6 +1,8 @@
 package org.easydto.proxy;
 
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.easydto.conversion.converter.DtoConverter;
 import org.easydto.conversion.converter.DtoDeConverter;
 import org.easydto.conversion.converter.impl.DefaultDtoConverter;
@@ -8,10 +10,13 @@ import org.easydto.conversion.converter.impl.DefaultDtoDeConverter;
 import org.easydto.domain.ConversionContext;
 import org.easydto.domain.PropertyConfiguration;
 import org.easydto.domain.StdConversionContext;
+import org.easydto.jackson.DtoDeserializer;
+import org.easydto.jackson.DtoSerializer;
 
 import java.util.Map;
 
-
+@JsonDeserialize(using = DtoDeserializer.class)
+@JsonSerialize(using = DtoSerializer.class)
 public interface Dto<T> {
 
     DtoDeConverter DEFAULT_DTO_DE_CONVERTER = new DefaultDtoDeConverter();
